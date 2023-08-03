@@ -7,9 +7,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 @Entity
@@ -23,11 +23,15 @@ public class Librarian {
 	private int id;
 	@NotEmpty
 	private String name;
-	@Pattern(regexp = "(^$|[0-9]{10})")
+	@Digits(integer = 10, fraction = 0)
 	private long mobile;
 	@Email
+	@NotEmpty
 	private String email;
 	private boolean status;
+	@NotEmpty
 	private String gender;
+	@NotEmpty
+	private String password;
 	private int otp;
 }
