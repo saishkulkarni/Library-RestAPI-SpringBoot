@@ -51,4 +51,13 @@ public class MainExceptionHandler {
 
 		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_ACCEPTABLE);
 	}
+	@ExceptionHandler(VerificationPendingException.class)
+	public ResponseEntity<ResponseStructure<String>> notVerified(VerificationPendingException exception) {
+		ResponseStructure<String> structure = new ResponseStructure<>();
+		structure.setData(exception.getMessage());
+		structure.setMessage("There is an Exception");
+		structure.setStatus(HttpStatus.UNAUTHORIZED.value());
+
+		return new ResponseEntity<ResponseStructure<String>>(structure, HttpStatus.NOT_ACCEPTABLE);
+	}
 }

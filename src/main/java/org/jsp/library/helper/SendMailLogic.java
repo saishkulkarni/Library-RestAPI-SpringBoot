@@ -58,7 +58,7 @@ public class SendMailLogic {
 				gender = "Ms. ";
 
 			String message = "<h1>Hello " + gender + student.getName()
-					+ ",<br>Your verification link to Creating Account with us is,<br><a href='http://localhost:8080/students/verify/"+student.getId()+"/"+student.getToken()+"'>Click here</a></h1>";
+					+ ",<br>Your verification link to Creating Account with us is,<br><a href='https://super-duper-space-bassoon-9r6rjjp464gcpr5r-8080.app.github.dev/students/verify/"+student.getId()+"/"+student.getToken()+"'>Click here</a></h1>";
 
 			helper.setText(message, true);
 			

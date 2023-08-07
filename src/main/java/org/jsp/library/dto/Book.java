@@ -6,18 +6,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-@Data
 @Entity
-public class Student {
+@Data
+public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     String name;
-    String email;
-    String password;
-    String token;
-    String gender;
-    long mobile;
-    int registerNumber;
+    String author;
+    int quantity;
+    double Price;
     boolean status;
 }

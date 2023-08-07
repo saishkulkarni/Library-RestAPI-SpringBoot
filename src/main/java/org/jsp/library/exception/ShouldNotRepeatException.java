@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class ShouldNotRepeatException extends Exception {
+public class ShouldNotRepeatException extends RuntimeException {
 	String message = "This Field Should Not be Repeated";
 
 	@Override

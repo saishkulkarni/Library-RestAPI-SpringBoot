@@ -1,6 +1,7 @@
 package org.jsp.library.dao;
 
 import org.jsp.library.dto.Librarian;
+import org.jsp.library.exception.NotFoundException;
 import org.jsp.library.repository.LibrarianRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,7 +22,7 @@ public class LibrarianDao {
 	
 	public Librarian findById(int id)
 	{
-		return librarianRepository.findById(id).orElse(null);
+		return librarianRepository.findById(id).orElseThrow(()->new NotFoundException("Id Not Found"));
 	}
 
 	

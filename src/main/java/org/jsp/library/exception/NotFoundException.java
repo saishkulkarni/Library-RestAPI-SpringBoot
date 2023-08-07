@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class NotFoundException extends Exception {
+public class NotFoundException extends RuntimeException {
 	String message = "Not Found";
 
 	@Override

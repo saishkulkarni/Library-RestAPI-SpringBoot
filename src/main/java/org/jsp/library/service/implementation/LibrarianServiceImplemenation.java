@@ -7,6 +7,7 @@ import org.jsp.library.dao.LibrarianDao;
 import org.jsp.library.dto.Librarian;
 import org.jsp.library.exception.NotFoundException;
 import org.jsp.library.exception.ShouldNotRepeatException;
+import org.jsp.library.exception.VerificationPendingException;
 import org.jsp.library.helper.LoginHelper;
 import org.jsp.library.helper.ResponseStructure;
 import org.jsp.library.helper.SendMailLogic;
@@ -27,7 +28,7 @@ public class LibrarianServiceImplemenation implements LibrarianService {
 
 	@Override
 	public ResponseEntity<ResponseStructure<Librarian>> createLibrarianAccount(Librarian librarian)
-			throws ShouldNotRepeatException {
+	 {
 		int otp = new Random().nextInt(100000, 999999);
 		librarian.setOtp(otp);
 
@@ -51,7 +52,7 @@ public class LibrarianServiceImplemenation implements LibrarianService {
 
 	@Override
 	public ResponseEntity<ResponseStructure<Librarian>> createLibrarianAccount(int id, int otp)
-			throws NotFoundException {
+	 {
 		Librarian librarian = librarianDao.findById(id);
 		if (librarian == null) {
 			throw new NotFoundException("Id Not Found");
@@ -80,13 +81,18 @@ public class LibrarianServiceImplemenation implements LibrarianService {
 			throw new InputMismatchException("Invalid Email");
 		} else {
 			if (librarian.getPassword().equals(helper.getPassword())) {
+				if(librarian.isStatus())
+				{
 				ResponseStructure<Librarian> structure = new ResponseStructure<Librarian>();
 				structure.setData(librarian);
 				structure.setMessage("Login Success");
 				structure.setStatus(HttpStatus.FOUND.value());
 
 				return new ResponseEntity<ResponseStructure<Librarian>>(structure, HttpStatus.FOUND);
-
+				}
+				else{
+					throw new VerificationPendingException("OTP Verification Pending");
+				}
 			} else {
 				throw new InputMismatchException("Invalid Password");
 			}
