@@ -1,5 +1,7 @@
 package org.jsp.library.controller;
 
+import java.util.List;
+
 import org.jsp.library.dto.Book;
 import org.jsp.library.dto.Librarian;
 import org.jsp.library.helper.LoginHelper;
@@ -53,25 +55,25 @@ public class LibrarianController {
 	}
 
 	@GetMapping("/book/name/{name}")
-	public ResponseEntity<ResponseStructure<Book>> fetchBook(@PathVariable String name)
+	public ResponseEntity<ResponseStructure<List<Book>>> fetchBook(@PathVariable String name)
 	{
 		return librarianService.fetchBook(name);
 	}
 
 	@GetMapping("/book/author/{author}")
-	public ResponseEntity<ResponseStructure<Book>> fetchBookByAuthor(@PathVariable String author)
+	public ResponseEntity<ResponseStructure<List<Book>>> fetchBookByAuthor(@PathVariable String author)
 	{
 		return librarianService.fetchBookByAuthor(author);
 	}
 
 	@GetMapping("/books")
-	public ResponseEntity<ResponseStructure<Book>> fetchBook()
+	public ResponseEntity<ResponseStructure<List<Book>>> fetchBook()
 	{
 		return librarianService.fetchAllBooks();
 	}
 
 	@GetMapping("/books/available")
-	public ResponseEntity<ResponseStructure<Book>> fetchAvailableBooks()
+	public ResponseEntity<ResponseStructure<List<Book>>> fetchAvailableBooks()
 	{
 		return librarianService.fetchAllBooks(true);
 	}

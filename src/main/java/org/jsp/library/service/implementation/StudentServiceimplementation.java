@@ -4,9 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Random;
 
 import org.jsp.library.dao.StudentDao;
-import org.jsp.library.dto.Librarian;
 import org.jsp.library.dto.Student;
-import org.jsp.library.exception.NotFoundException;
 import org.jsp.library.exception.ShouldNotRepeatException;
 import org.jsp.library.exception.VerificationPendingException;
 import org.jsp.library.helper.LoginHelper;
