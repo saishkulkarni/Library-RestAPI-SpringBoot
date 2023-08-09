@@ -11,33 +11,40 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.v3.oas.annotations.Operation;
 
 @RestController
 @RequestMapping("/students")
 public class StudentController {
 
-    @Autowired
-    StudentService studentService;
+	@Autowired
+	StudentService studentService;
 
-    @PostMapping
-    public ResponseEntity<ResponseStructure<Student>> createStudent(@RequestBody Student student)
-    {
-        return studentService.createStudentAccount(student);
-    } 
+	@PostMapping
+	@Operation(summary = "Student Create Account")
+	public ResponseEntity<ResponseStructure<Student>> createStudent(@RequestBody Student student) {
+		return studentService.createStudentAccount(student);
+	}
 
-    @GetMapping("/verify/{id}/{token}")
-    public ResponseEntity<ResponseStructure<Student>> createStudent(@PathVariable int id,@PathVariable String token)
-    {
-        return studentService.createStudentAccount(id,token);
-    }
+	@GetMapping("/verify/{id}/{token}")
+	@Operation(summary = "Student Verify Email Link")
+	public ResponseEntity<ResponseStructure<Student>> createStudent(@PathVariable int id, @PathVariable String token) {
+		return studentService.createStudentAccount(id, token);
+	}
 
-    @PostMapping("/login")
-    public ResponseEntity<ResponseStructure<Student>> loginStudent(@RequestBody LoginHelper helper)
-    {
-        return studentService.login(helper);
-    }
+	@PostMapping("/login")
+	@Operation(summary = "Student Login")
+	public ResponseEntity<ResponseStructure<Student>> loginStudent(@RequestBody LoginHelper helper) {
+		return studentService.login(helper);
+	}
 
-    
+	@PostMapping("/book/{sid}{bid}")
+	@Operation(summary = "Borrow Book")
+	public ResponseEntity<ResponseStructure<Student>> borrowBoook(@RequestParam int sid, @RequestParam int bid) {
+		return studentService.borrowBook(sid, bid);
+	}
 
 }

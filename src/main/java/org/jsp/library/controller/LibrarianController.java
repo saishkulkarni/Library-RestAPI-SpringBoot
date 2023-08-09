@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @RestController
 @RequestMapping("/librarian")
 public class LibrarianController {
@@ -27,66 +30,69 @@ public class LibrarianController {
 	LibrarianService librarianService;
 
 	@PostMapping
-	public ResponseEntity<ResponseStructure<Librarian>> createLibrarianAccount(@RequestBody Librarian librarian){
+	@Operation(summary = "Create Librarian Account")
+	public ResponseEntity<ResponseStructure<Librarian>> createLibrarianAccount(@RequestBody Librarian librarian) {
 		return librarianService.createLibrarianAccount(librarian);
 	}
 
 	@PutMapping
+	@Operation(summary = "Verify Email for Librarian")
 	public ResponseEntity<ResponseStructure<Librarian>> createLibrarianAccount(@RequestParam int id,
-			@RequestParam int otp){
+			@RequestParam int otp) {
 		return librarianService.createLibrarianAccount(id, otp);
 	}
 
 	@PostMapping("/login")
+	@Operation(summary = "Librarian Login")
 	public ResponseEntity<ResponseStructure<Librarian>> login(@RequestBody LoginHelper helper) {
 		return librarianService.login(helper);
 	}
 
 	@PostMapping("/book")
-	public ResponseEntity<ResponseStructure<Book>> addBook(@RequestBody Book book)
-	{
+	@Operation(summary = "Add Book")
+	public ResponseEntity<ResponseStructure<Book>> addBook(@RequestBody Book book) {
 		return librarianService.addBook(book);
 	}
 
 	@GetMapping("/book/id/{id}")
-	public ResponseEntity<ResponseStructure<Book>> fetchBook(@PathVariable int id)
-	{
+	@Operation(summary = "Fetch Book By Id")
+	public ResponseEntity<ResponseStructure<Book>> fetchBook(@PathVariable int id) {
 		return librarianService.fetchBook(id);
 	}
 
 	@GetMapping("/book/name/{name}")
-	public ResponseEntity<ResponseStructure<List<Book>>> fetchBook(@PathVariable String name)
-	{
+	@Operation(summary = "Fetch Book By Name")
+	public ResponseEntity<ResponseStructure<List<Book>>> fetchBook(@PathVariable String name) {
 		return librarianService.fetchBook(name);
 	}
 
 	@GetMapping("/book/author/{author}")
-	public ResponseEntity<ResponseStructure<List<Book>>> fetchBookByAuthor(@PathVariable String author)
-	{
+	@Operation(summary = "Fetch Book By Auhtor")
+	public ResponseEntity<ResponseStructure<List<Book>>> fetchBookByAuthor(@PathVariable String author) {
 		return librarianService.fetchBookByAuthor(author);
 	}
 
 	@GetMapping("/books")
-	public ResponseEntity<ResponseStructure<List<Book>>> fetchBook()
-	{
+	@Operation(summary = "Fetch All Books")
+	public ResponseEntity<ResponseStructure<List<Book>>> fetchBook() {
 		return librarianService.fetchAllBooks();
 	}
 
 	@GetMapping("/books/available")
-	public ResponseEntity<ResponseStructure<List<Book>>> fetchAvailableBooks()
-	{
+	@Operation(summary = "Fetch All Available Books")
+	public ResponseEntity<ResponseStructure<List<Book>>> fetchAvailableBooks() {
 		return librarianService.fetchAllBooks(true);
 	}
 
 	@PutMapping("/book")
-	public ResponseEntity<ResponseStructure<Book>> updateBook(@RequestBody Book book)
-	{
+	@Operation(summary = "Update Book")
+	public ResponseEntity<ResponseStructure<Book>> updateBook(@RequestBody Book book) {
 		return librarianService.updateBook(book);
 	}
 
 	@DeleteMapping("/book/{id}")
-	public ResponseEntity<ResponseStructure<Book>> deleteBook(@PathVariable int id)
-	{
+	@Operation(summary = "Delete Book")
+	public ResponseEntity<ResponseStructure<Book>> deleteBook(@PathVariable int id) {
 		return librarianService.deleteBook(id);
 	}
 

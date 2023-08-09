@@ -11,4 +11,6 @@ public interface StudentService {
     ResponseEntity<ResponseStructure<Student>> createStudentAccount(int id, String token);
 
     ResponseEntity<ResponseStructure<Student>> login(LoginHelper helper);
+
+	ResponseEntity<ResponseStructure<Student>> borrowBook(int sid, int bid);
 }
