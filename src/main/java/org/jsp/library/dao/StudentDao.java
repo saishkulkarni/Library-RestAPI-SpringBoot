@@ -24,6 +24,6 @@ public class StudentDao {
 
     public Student findById(int id)
     {
-        return studentRepository.findById(id).orElseThrow(()->new NotFoundException("Id Not Found"));
+        return studentRepository.findById(id).orElseThrow(()->new NotFoundException("No Student Record Found with following id"));
     }
 }

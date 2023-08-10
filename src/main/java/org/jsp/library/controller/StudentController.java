@@ -41,7 +41,7 @@ public class StudentController {
 		return studentService.login(helper);
 	}
 
-	@PostMapping("/book/{sid}{bid}")
+	@PostMapping("/book/{sid}/{bid}")
 	@Operation(summary = "Borrow Book")
 	public ResponseEntity<ResponseStructure<Student>> borrowBoook(@RequestParam int sid, @RequestParam int bid) {
 		return studentService.borrowBook(sid, bid);
