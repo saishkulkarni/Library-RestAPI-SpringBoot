@@ -29,10 +29,7 @@ public class StudentServiceimplementation implements StudentService {
 
 	@Autowired
 	StudentDao studentDao;
-
-	@Autowired
-	BookRecord record;
-
+	
 	@Autowired
 	BookRecordDao bookRecordDao;
 
@@ -45,7 +42,7 @@ public class StudentServiceimplementation implements StudentService {
 	@Override
 	public ResponseEntity<ResponseStructure<Student>> createStudentAccount(Student student) {
 		if (studentDao.findByEmail(student.getEmail()) == null) {
-			String token = new Random().hashCode() + "";
+			String token = "std" + new Random().hashCode() + "ggi";
 			student.setToken(token);
 
 			studentDao.save(student);
@@ -106,17 +103,34 @@ public class StudentServiceimplementation implements StudentService {
 	public ResponseEntity<ResponseStructure<Student>> borrowBook(int sid, int bid) {
 		Student student = studentDao.findById(sid);
 		Book book = bookDao.findById(bid);
-		if (book.isStatus()) {
+
+		boolean flag = true;
+
+		// Logic to check if book is already borrowed by the student
+		List<BookRecord> bookRecords = student.getRecords();
+		if (bookRecords != null && !bookRecords.isEmpty()) {
+			for (BookRecord bookRecord : bookRecords) {
+				if (bookRecord.getBook().getId() == bid && bookRecord.getReturnDate() == null) {
+					flag = false;
+					break;
+				}
+			}
+		}
+
+		// Logic to borrow book
+		if (book.isStatus() && flag) {
 			book.setQuantity(book.getQuantity() - 1);
 			if (book.getQuantity() < 1)
 				book.setStatus(false);
-
+			// Mapping student and book with record
+			BookRecord record=new BookRecord();
 			record.setBook(book);
 			record.setStudent(student);
 			record.setIssueDate(LocalDate.now());
 
 			bookRecordDao.saveRecord(record);
 
+			// Mapping Record with book
 			List<BookRecord> bookRecords1 = book.getRecords();
 
 			if (bookRecords1 == null)
@@ -127,6 +141,7 @@ public class StudentServiceimplementation implements StudentService {
 
 			bookDao.save(book);
 
+			// Mapping Record with Student
 			List<BookRecord> bookRecords2 = student.getRecords();
 			if (bookRecords2 == null)
 				bookRecords2 = new ArrayList<>();
@@ -144,7 +159,7 @@ public class StudentServiceimplementation implements StudentService {
 			return new ResponseEntity<ResponseStructure<Student>>(structure, HttpStatus.OK);
 
 		} else {
-			throw new NotFoundException("Book is Not Available");
+			throw new NotFoundException("Book is Not Available or Already borrowed");
 		}
 	}
 
