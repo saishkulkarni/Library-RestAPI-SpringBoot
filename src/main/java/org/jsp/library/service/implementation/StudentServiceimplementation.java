@@ -163,4 +163,10 @@ public class StudentServiceimplementation implements StudentService {
 		}
 	}
 
+	@Override
+	public ResponseEntity<ResponseStructure<Student>> returnBook(int sid, int bid) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'returnBook'");
+	}
+
 }
